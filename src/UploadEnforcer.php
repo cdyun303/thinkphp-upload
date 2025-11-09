@@ -9,20 +9,45 @@ declare (strict_types=1);
 
 namespace Cdyun\ThinkphpUpload;
 
+use Cdyun\ThinkphpUpload\driver\Local;
+use Cdyun\ThinkphpUpload\driver\Oss;
+use Cdyun\ThinkphpUpload\util\UseTool;
+use think\facade\Filesystem;
+
+/**
+ *
+ * @mixin Local
+ * @mixin Oss
+ * */
 class UploadEnforcer
 {
     /**
-     * 获取配置config
-     * @param string|null $name - 名称
-     * @param $default - 默认值
-     * @return mixed
-     * @author cdyun(121625706@qq.com)
+     * 驱动类型
      */
-    public function getConfig(?string $name = null, $default = null): mixed
+    protected string $type;
+
+    public function __construct(string $type = '')
     {
-        if (!is_null($name)) {
-            return config('cdyun.upload.' . $name, $default);
-        }
-        return config('cdyun.upload');
+        $this->type = $type ?: Filesystem::getDefaultDriver();
+    }
+
+
+    /**
+     * 动态调用
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     * @throws \Exception
+     */
+    public function __call($method, $arguments)
+    {
+        // 获取指定驱动的配置
+        $config = UseTool::getConfig('stores.' . $this->type, []);
+        $class = match ($this->type) {
+            'local' => new Local($config),
+            'oss' => new Oss($config),
+            default => throw new \Exception('暂不支持此驱动'),
+        };
+        return $class->{$method}(...$arguments);
     }
 }
