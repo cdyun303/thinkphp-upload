@@ -1,0 +1,29 @@
+{
+  "name": "cdyun/thinkphp-upload",
+  "type": "library",
+  "license": "MIT",
+  "description": "TP plugin cdyun/thinkphp-upload",
+  "keywords": [
+    "php",
+    "upload",
+    "cdyun",
+    "oss"
+  ],
+  "authors": [
+    {
+      "name": "cdyun",
+      "email": "121625706@qq.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "topthink/think-filesystem": "^3.0",
+    "alibabacloud/oss-v2": "^0.3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Cdyun\\ThinkphpUpload\\": "src"
+    }
+  }
+}
