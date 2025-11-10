@@ -23,7 +23,7 @@ class Local extends BaseUpload
 
     /**
      * 上传文件
-     * @param string $fileField
+     * @param string $fileField - 文件字段名
      * @return \StdClass
      * @author cdyun(121625706@qq.com)
      */
@@ -121,7 +121,7 @@ class Local extends BaseUpload
 
     /**
      * 删除文件
-     * @param string $filePath
+     * @param string $filePath - 文件路径
      * @return true
      * @author cdyun(121625706@qq.com)
      */
@@ -147,8 +147,8 @@ class Local extends BaseUpload
 
     /**
      * 签名
-     * @param string $key
-     * @param int $expires
+     * @param string $key - 文件名
+     * @param int $expires - 有效期
      * @return array
      * @author cdyun(121625706@qq.com)
      */

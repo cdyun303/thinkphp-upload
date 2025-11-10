@@ -32,7 +32,7 @@ class Oss extends BaseUpload
 
     /**
      * 文件上传（直接上传/分片上传）
-     * @param string $fileField
+     * @param string $fileField - 文件字段名
      * @return \StdClass
      * @author cdyun(121625706@qq.com)
      */
@@ -71,8 +71,8 @@ class Oss extends BaseUpload
 
     /**
      * 分片上传
-     * @param $file
-     * @param string $name
+     * @param $file - 文件对象
+     * @param string $name - 文件名
      * @return array
      * @author cdyun(121625706@qq.com)
      */
@@ -239,8 +239,8 @@ class Oss extends BaseUpload
 
     /**
      * 签名 URL
-     * @param string $key
-     * @param int $expires
+     * @param string $key - 含存储路径文件名
+     * @param int $expires - 过期时间
      * @return string
      * @author cdyun(121625706@qq.com)
      */
@@ -252,8 +252,8 @@ class Oss extends BaseUpload
 
     /**
      * 签名URL
-     * @param string $key
-     * @param int $expires
+     * @param string $key - 含存储路径文件名
+     * @param int $expires - 过期时间
      * @return array
      * @author cdyun(121625706@qq.com)
      */

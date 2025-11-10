@@ -198,7 +198,7 @@ abstract class BaseUpload
     {
         $flag = [];
         if (isset($rule['fileSize'])) {
-            $flag[] = 'filesize:' . $rule['fileSize'];
+            $flag[] = 'fileSize:' . $rule['fileSize'];
         }
         if (isset($rule['fileExt'])) {
             $flag[] = 'fileExt:' . $rule['fileExt'];
