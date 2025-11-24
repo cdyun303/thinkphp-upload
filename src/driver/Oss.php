@@ -32,17 +32,16 @@ class Oss extends BaseUpload
 
     /**
      * 文件上传（直接上传/分片上传）
-     * @param string $fileField - 文件字段名
+     * @param File $file - 文件对象
      * @return \StdClass
      * @author cdyun(121625706@qq.com)
      */
-    public function move(string $fileField = 'file'): \StdClass
+    public function move(File $file): \StdClass
     {
-        $fileHandle = request()->file($fileField);
-        if (!$fileHandle) {
+        if (!$file) {
             throw new ValidateException('上传文件丢失');
         }
-        $fileInfo = $this->prepareFiles($fileHandle);
+        $fileInfo = $this->prepareFiles($file);
 
         //验证上传文件
         $this->validateFileByConfig($fileInfo);
@@ -50,7 +49,7 @@ class Oss extends BaseUpload
         //判断是否有自定义验证
         if (!empty($this->validateRule)) {
             $rule = $this->extractValidate($this->validateRule);
-            validate([$fileField => $rule])->check([$fileField => $fileInfo['file']]);
+            validate(['file' => $rule])->check(['file' => $fileInfo['file']]);
         }
 
         //生成文件名
@@ -62,7 +61,7 @@ class Oss extends BaseUpload
         } else {
             $flag = $this->directUpload($fileInfo['file'], $name);
         }
-        $this->fileInfo->realName = $fileHandle->getOriginalName();
+        $this->fileInfo->realName = $file->getOriginalName();
         $this->fileInfo->fileName = $flag['key'];
         $this->fileInfo->originLink = $flag['url'];
         $this->fileInfo->signLink = $this->signUrl($flag['key']);

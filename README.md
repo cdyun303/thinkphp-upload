@@ -14,15 +14,15 @@ use Cdyun\ThinkphpUpload\UploadEnforcer;
 
 $upload = new UploadEnforcer();
 // 默认上传
-$result = $upload->move();
+$result = $upload->move(File文件);
 // 指定上传路径
-$result = $upload->path('uploads')->move();
+$result = $upload->path('uploads')->move(File文件);
 // 指定文件名
-$result = $upload->name('file.txt')->move();
+$result = $upload->name('file.txt')->move(File文件);
 // 自定义验证
-$result = $upload->validate(['fileSize' => 1024])->move();
+$result = $upload->validate(['fileSize' => 1024])->move(File文件);
 // 多个配置
-$result = $upload->path('uploads')->validate(['fileSize' => 1024])->name('file.txt')->move();
+$result = $upload->path('uploads')->validate(['fileSize' => 1024])->name('file.txt')->move(File文件);
 
 ```
 

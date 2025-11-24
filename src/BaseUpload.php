@@ -103,11 +103,11 @@ abstract class BaseUpload
 
     /**
      * 文件上传
-     * @param string $fileField - 文件字段名
+     * @param File $file - 文件对象
      * @return \StdClass
      * @author cdyun(121625706@qq.com)
      */
-    abstract public function move(string $fileField = 'file'): \StdClass;
+    abstract public function move(File $file): \StdClass;
 
     /**
      * 文件流上传

@@ -23,17 +23,16 @@ class Local extends BaseUpload
 
     /**
      * 上传文件
-     * @param string $fileField - 文件字段名
+     * @param File $file - 文件对象
      * @return \StdClass
      * @author cdyun(121625706@qq.com)
      */
-    public function move(string $fileField = 'file'): \StdClass
+    public function move(File $file): \StdClass
     {
-        $fileHandle = request()->file($fileField);
-        if (!$fileHandle) {
+        if (!$file) {
             throw new ValidateException('上传文件丢失');
         }
-        $fileInfo = $this->prepareFiles($fileHandle);
+        $fileInfo = $this->prepareFiles($file);
 
         //验证上传文件
         $this->validateFileByConfig($fileInfo);
@@ -41,7 +40,7 @@ class Local extends BaseUpload
         //判断是否有自定义验证
         if (!empty($this->validateRule)) {
             $rule = $this->extractValidate($this->validateRule);
-            validate([$fileField => $rule])->check([$fileField => $fileInfo['file']]);
+            validate(['file' => $rule])->check(['file' => $fileInfo['file']]);
         }
 
         //验证路径是否存在且可写
@@ -57,7 +56,7 @@ class Local extends BaseUpload
         }
         $filePath = Filesystem::path($fileName);
         $uploadInfo = new File($filePath);
-        $this->fileInfo->realName = $fileHandle->getOriginalName();
+        $this->fileInfo->realName = $file->getOriginalName();
         $this->fileInfo->fileName = $uploadInfo->getFilename();
         $this->fileInfo->originLink = Filesystem::url($fileName);
         $this->fileInfo->signLink = Filesystem::url($fileName);
